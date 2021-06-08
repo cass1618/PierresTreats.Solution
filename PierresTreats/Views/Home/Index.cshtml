@@ -14,7 +14,22 @@
 
 @foreach (Treat treat in Model)
 {
-  <li>@Html.ActionLink($"{treat.TreatName}", "Details", new { id = treat.TreatId })</li>
+  <li>@Html.ActionLink($"{treat.TreatName}", "Details", "Treat", new { id = treat.TreatId })</li>
 }
 
-<p>@Html.ActionLink("Add new treat", "Create")</p>
+<p>@Html.ActionLink("Add new treat", "Create", "Treat")</p>
+
+<h1>Flavors</h1>
+
+@if (@ViewBag.Flavors.Count == 0)
+{
+  <h3>No flavors have been added yet!</h3>
+} 
+
+@foreach (Flavor flavor in ViewBag.Flavors)
+{
+  <li>@Html.ActionLink($"{flavor.Description}", "Details", "Treat", new { id = flavor.FlavorId })</li>
+}
+
+
+<p>@Html.ActionLink("Add new flavor", "Create", "Flavor")</p>

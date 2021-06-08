@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 using PierresTreats.Models;
 using System.Linq;
 
-
 namespace PierresTreats.Controllers
 {
   public class HomeController : Controller
@@ -20,19 +19,11 @@ namespace PierresTreats.Controllers
     }
 
     [HttpGet("/")]
-    public ActionResult Index()
+    public ActionResult Index(int id)
     {
+      ViewBag.Flavors = _db.Flavors.ToList();
       return View(_db.Treats.ToList());
     }
-
-    [HttpGet("treat/details/{id}")]
-    public ActionResult Details(int id)
-    {
-      var thisTreat = _db.Treats
-          .Include(treat => treat.JoinEntities)
-          .ThenInclude(join => join.Flavor)
-          .FirstOrDefault(treat => treat.TreatId == id);
-      return View(thisTreat);
-    }
   }
+
 }
